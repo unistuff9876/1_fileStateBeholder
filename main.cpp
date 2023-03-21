@@ -6,7 +6,7 @@ int main(int argc, char *argv[])
     QCoreApplication a(argc, argv);
 
     FileMonitor *fileMonitor = new FileMonitor;
-    fileMonitor->addFile("C:\\A.txt");
+    fileMonitor->addFile("C:\\a.txt");
 
     return a.exec();
 }

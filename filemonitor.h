@@ -15,12 +15,14 @@ class FileState
 private:
     QFileInfo *fi = nullptr;
     QDateTime lastModified_prev;
+    bool exists_prev = 0;
 
 public:
     FileState(QString path) {
         fi = new QFileInfo(path);
         if(fi->exists(path)) {
-            lastModified_prev = fi->metadataChangeTime();
+            lastModified_prev = fi->lastModified();
+            exists_prev = 1;
         }
     }
     FileState() {}
@@ -43,16 +45,35 @@ public:
         return fi->exists();
     }
     void updateAndDisplayState() {
-        if (!exists()){
-            qInfo() << getName() + " doesn't exist";
+        if (fi == nullptr){
+            qInfo() << "what";
             return;
         }
-        qInfo() << getName()
-                << "size: " + getSize();
-
-        if (fi->metadataChangeTime() != lastModified_prev) {
-            qInfo() << "file was changed!";
+        qInfo() << getName() + ":";
+        if (!exists()){
+            if (exists_prev) {
+                qInfo() << "was deleted";
+                exists_prev = 0;
+            } else {
+                qInfo() << "doesn't exist";
+            }
+            return;
         }
+        if (!exists_prev) {
+            qInfo() << "was created";
+            exists_prev = 1;
+            lastModified_prev = fi->lastModified();
+        } else
+        if (fi->lastModified() != lastModified_prev) {
+            qInfo() << "was changed!";
+            lastModified_prev = fi->lastModified();
+        }
+        printf("size: %llu\n",getSize());
+        //does not work like this
+        //much peculiar
+        //qInfo() << "size: " + getSize();
+
+        qInfo() << "";
     }
 };
 
@@ -73,7 +94,7 @@ private:
 signals:
 
 public slots:
-    void checkOnFiles();
+    void updateAndDisplayFileInfo();
 };
 
 #endif // FILEMONITOR_H
