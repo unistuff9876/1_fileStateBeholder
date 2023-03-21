@@ -1,10 +1,14 @@
 #ifndef FILEMONITOR_H
 #define FILEMONITOR_H
 
+//i wanna put these in main before this header
+//gets included but i cant get it to work
 #include <QObject>
 #include <QVector>
 #include <QFileInfo>
 #include <QDateTime>
+#include <QTimer>
+#include <QDebug>
 
 class FileState
 {
@@ -13,7 +17,6 @@ private:
     QDateTime lastModified_prev;
 
 public:
-    //no need for copy or default contstructors here
     FileState(QString path) {
         fi = new QFileInfo(path);
         if(fi->exists(path)) {
@@ -39,6 +42,18 @@ public:
         }
         return fi->exists();
     }
+    void updateAndDisplayState() {
+        if (!exists()){
+            qInfo() << getName() + " doesn't exist";
+            return;
+        }
+        qInfo() << getName()
+                << "size: " + getSize();
+
+        if (fi->metadataChangeTime() != lastModified_prev) {
+            qInfo() << "file was changed!";
+        }
+    }
 };
 
 
@@ -52,11 +67,13 @@ public:
     bool delFile(QString path);
 
 private:
-    QVector<FileState> objects;
+    QTimer *timer;
+    QVector<FileState> files;
 
 signals:
 
 public slots:
+    void checkOnFiles();
 };
 
 #endif // FILEMONITOR_H
