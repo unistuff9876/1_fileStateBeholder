@@ -49,13 +49,14 @@ public:
             qInfo() << "what";
             return;
         }
+        fi->refresh();
         qInfo() << getName() + ":";
         if (!exists()){
             if (exists_prev) {
-                qInfo() << "was deleted";
+                qInfo() << "was deleted" << "";
                 exists_prev = 0;
             } else {
-                qInfo() << "doesn't exist";
+                qInfo() << "doesn't exist" << "";
             }
             return;
         }
