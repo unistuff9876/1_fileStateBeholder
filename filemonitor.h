@@ -45,10 +45,12 @@ public:
         return fi->exists();
     }
     void updateAndDisplayState() {
-        if (fi == nullptr){
+        //this should never be reachable
+        if (fi == nullptr) {
             qInfo() << "what";
             return;
         }
+        //refreshing file info so we dont read cached
         fi->refresh();
         qInfo() << getName() + ":";
         if (!exists()){
@@ -69,12 +71,8 @@ public:
             qInfo() << "was changed!";
             lastModified_prev = fi->lastModified();
         }
-        printf("size: %llu\n",getSize());
-        //does not work like this
-        //much peculiar
-        //qInfo() << "size: " + getSize();
-
-        qInfo() << "";
+        //this does not work via qInfo, much peculiar
+        printf("%llu bytes\n", getSize());
     }
 };
 

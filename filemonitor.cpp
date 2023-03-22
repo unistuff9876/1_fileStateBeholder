@@ -2,7 +2,6 @@
 
 FileMonitor::FileMonitor(QObject *parent) : QObject(parent)
 {
-    //
     timer = new QTimer(this);
     QObject::connect(timer, &QTimer::timeout, this, &FileMonitor::updateAndDisplayFileInfo);
     timer->start(1000);
@@ -25,4 +24,3 @@ void FileMonitor::updateAndDisplayFileInfo()
         i.updateAndDisplayState();
     }
 }
-/**/
