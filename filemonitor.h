@@ -13,45 +13,31 @@
 class FileState
 {
 private:
-    QFileInfo *fi = nullptr;
+    QFileInfo fi;
     QDateTime lastModified_prev;
     bool exists_prev = 0;
 
 public:
     FileState(QString path) {
-        fi = new QFileInfo(path);
-        if(fi->exists(path)) {
-            lastModified_prev = fi->lastModified();
+        fi = QFileInfo(path);
+        if(fi.exists(path)) {
+            lastModified_prev = fi.lastModified();
             exists_prev = 1;
         }
     }
     FileState() {}
     QString getName() {
-        if (fi == nullptr) {
-            return "";
-        }
-        return fi->fileName();
+        return fi.fileName();
     }
     qint64 getSize() {
-        if (fi == nullptr) {
-            return 0;
-        }
-        return fi->size();
+        return fi.size();
     }
     bool exists() {
-        if (fi == nullptr) {
-            return 0;
-        }
-        return fi->exists();
+        return fi.exists();
     }
     void updateAndDisplayState() {
-        //this should never be reachable
-        if (fi == nullptr) {
-            qInfo() << "what";
-            return;
-        }
         //refreshing file info so we dont read cached
-        fi->refresh();
+        fi.refresh();
         qInfo() << getName() + ":";
         if (!exists()){
             if (exists_prev) {
@@ -65,11 +51,11 @@ public:
         if (!exists_prev) {
             qInfo() << "was created";
             exists_prev = 1;
-            lastModified_prev = fi->lastModified();
+            lastModified_prev = fi.lastModified();
         } else
-        if (fi->lastModified() != lastModified_prev) {
+        if (fi.lastModified() != lastModified_prev) {
             qInfo() << "was changed!";
-            lastModified_prev = fi->lastModified();
+            lastModified_prev = fi.lastModified();
         }
         //this does not work via qInfo, much peculiar
         printf("%llu bytes\n", getSize());
