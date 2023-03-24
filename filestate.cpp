@@ -9,6 +9,11 @@ FileState::FileState(QString path) {
     }
 }
 
+QFileInfo FileState::getFi()
+{
+    return fi;
+}
+
 QString FileState::getName() {
     return fi.fileName();
 }

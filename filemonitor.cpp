@@ -15,7 +15,14 @@ bool FileMonitor::addFile(QString path)
 
 bool FileMonitor::delFile(QString path)
 {
-
+    QFileInfo fileToDelete(path);
+    for(auto it = files.begin(); it < files.end(); it++) {
+        if (it->getFi() == fileToDelete) {
+            files.erase(it);
+            return 1;
+        }
+    }
+    return 0;
 }
 
 void FileMonitor::updateAndDisplayFileInfo()
