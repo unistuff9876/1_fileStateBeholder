@@ -4,7 +4,7 @@
 #include <QObject>
 #include <QVector>
 #include <QTimer>
-#include <filestate.h>
+#include "filestate.h"
 
 class FileMonitor : public QObject
 {

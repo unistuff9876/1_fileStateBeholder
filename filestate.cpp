@@ -26,7 +26,7 @@ bool FileState::exists() {
     return fi.exists();
 }
 
-void FileState::updateAndDisplayState() {
+void FileState::updateState() {
     //this REFUSES to work as static,
     //or via the qstdout function
     //workaround for now

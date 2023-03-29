@@ -9,9 +9,9 @@ int main(int argc, char *argv[])
     fileMonitor.addFile("C:\\a.txt");
     fileMonitor.addFile("C:\\b.txt");
 
-    //QTimer timerCloseB();
+    //QTimer timerCloseB;
     //timerCloseB().setSingleShot(true);
-    //timerCloseB().connect(timerCloseB, &QTimer::timeout, fileMonitor, &FileMonitor::delFile("C:\\b.txt"));
+    //timerCloseB().connect(&timerCloseB, &QTimer::timeout, &fileMonitor, &FileMonitor::delFile("C:\\b.txt"));
     //timerCloseB().start(3000);
 
     return a.exec();
