@@ -25,32 +25,3 @@ qint64 FileState::getSize() {
 bool FileState::exists() {
     return fi.exists();
 }
-
-void FileState::updateState() {
-    //this REFUSES to work as static,
-    //or via the qstdout function
-    //workaround for now
-    QTextStream cout(stdout);
-    //refreshing file info so we dont read cached
-    fi.refresh();
-    cout << getName() << ":\n";
-    if (!exists()) {
-        if (exists_prev) {
-            cout << "was deleted\n";
-            exists_prev = 0;
-        } else {
-            cout << "doesn't exist\n";
-        }
-        return;
-    }
-    if (!exists_prev) {
-        cout << "was created\n";
-        exists_prev = 1;
-        lastModified_prev = fi.lastModified();
-    } else
-    if (fi.lastModified() != lastModified_prev) {
-        cout << "was changed!\n";
-        lastModified_prev = fi.lastModified();
-    }
-    cout << getSize() << " bytes\n";
-}

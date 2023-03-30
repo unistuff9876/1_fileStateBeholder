@@ -5,6 +5,7 @@
 #include <QVector>
 #include <QTimer>
 #include "filestate.h"
+#include "filestatedelta.h"
 
 class FileMonitor : public QObject
 {
@@ -24,6 +25,10 @@ private:
 
     QTimer *timer;
     QVector<FileState> files;
+
+    FileStateDelta updateFileState(FileState& fileState);
+
+    void displayFileStateDelta(FileStateDelta stateDelta);
 
 signals:
 

@@ -21,4 +21,5 @@ SOURCES += main.cpp \
 HEADERS += \
     filemonitor.h \
     qstdout.h \
-    filestate.h
+    filestate.h \
+    filestatedelta.h

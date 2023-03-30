@@ -3,6 +3,7 @@
 
 #include <QFileInfo>
 #include <QDateTime>
+#include <QVector>
 
 class FileState
 {
@@ -18,11 +19,8 @@ public:
     QString getName();
     qint64 getSize();
     bool exists();
-    void updateState();
-    void updateAndDisplayState();
 
-private:
-    void displayState();
+    friend class FileMonitor;
 };
 
 #endif // FILESTATE_H
