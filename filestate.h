@@ -9,8 +9,8 @@ class FileState
 {
 private:
     QFileInfo fi;
-    QDateTime lastModified_prev;
-    bool exists_prev = 0;
+    QDateTime lastModified_prev_;
+    bool exists_prev_ = 0;
 
 public:
     FileState(QString path);
@@ -19,8 +19,8 @@ public:
     QString getName();
     qint64 getSize();
     bool exists();
-
-    friend class FileMonitor;
+    bool& exists_prev();
+    QDateTime& lastModified_prev();
 };
 
 #endif // FILESTATE_H

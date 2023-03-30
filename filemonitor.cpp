@@ -17,12 +17,12 @@ FileStateDelta FileMonitor::updateFileState(FileState &fileState)
     stateDelta.name = fileState.getName();
 
     //refreshing file info so we dont read cached
-    fileState.fi.refresh();
+    fileState.getFi().refresh();
 
     if (!fileState.exists()) {
-        if (fileState.exists_prev) {
+        if (fileState.exists_prev()) {
             stateDelta.state = Deleted;
-            fileState.exists_prev = 0;
+            fileState.exists_prev() = 0;
         } else {
             stateDelta.state = DoesntExist;
         }
@@ -30,16 +30,16 @@ FileStateDelta FileMonitor::updateFileState(FileState &fileState)
     }
 
     stateDelta.state = Exists;
-    if (!fileState.exists_prev) {
+    if (!fileState.exists_prev()) {
         stateDelta.state = Created;
-        fileState.exists_prev = 1;
-        fileState.lastModified_prev
-                = fileState.fi.lastModified();
+        fileState.exists_prev() = 1;
+        fileState.lastModified_prev()
+                = fileState.getFi().lastModified();
     } else
-    if (fileState.fi.lastModified() != fileState.lastModified_prev) {
+    if (fileState.getFi().lastModified() != fileState.lastModified_prev()) {
         stateDelta.state = Modified;
-        fileState.lastModified_prev
-                = fileState.fi.lastModified();
+        fileState.lastModified_prev()
+                = fileState.getFi().lastModified();
     }
 
     stateDelta.size = fileState.getSize();
