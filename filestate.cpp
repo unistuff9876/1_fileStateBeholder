@@ -1,5 +1,4 @@
 #include "filestate.h"
-#include "qstdout.h"
 
 FileState::FileState(QString path) {
     fi = QFileInfo(path);

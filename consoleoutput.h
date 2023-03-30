@@ -1,9 +1,7 @@
-#ifndef QSTDOUT_H
-#define QSTDOUT_H
+#ifndef CONSOLEOUTPUT_H
+#define CONSOLEOUTPUT_H
 
 #include <QTextStream>
-
-//this gets called but just doesn't work
 
 QTextStream& cout()
 {
@@ -11,4 +9,4 @@ QTextStream& cout()
     return out;
 }
 
-#endif // QSTDOUT_H
+#endif // CONSOLEOUTPUT_H

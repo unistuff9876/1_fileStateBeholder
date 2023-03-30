@@ -20,6 +20,6 @@ SOURCES += main.cpp \
 
 HEADERS += \
     filemonitor.h \
-    qstdout.h \
     filestate.h \
-    filestatedelta.h
+    filestatedelta.h \
+    consoleoutput.h

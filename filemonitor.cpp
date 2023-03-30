@@ -2,6 +2,7 @@
 
 #include "filemonitor.h"
 #include "filestatedelta.h"
+#include "consoleoutput.h"
 
 FileMonitor::FileMonitor(QObject *parent) : QObject(parent)
 {
@@ -48,31 +49,29 @@ FileStateDelta FileMonitor::updateFileState(FileState &fileState)
 
 void FileMonitor::displayFileStateDelta(FileStateDelta stateDelta)
 {
-    //this REFUSES to work as static,
-    //or via the qstdout function
-    //workaround for now
-    QTextStream cout(stdout);
-
-    cout << stateDelta.name << ":\n";
+    cout() << stateDelta.name << ":\n";
 
     switch(stateDelta.state) {
         case DoesntExist:
-            cout << "doesn't exist\n";
+            cout() << "doesn't exist\n";
+            cout().flush();
             return;
         case Deleted:
-            cout << "was deleted\n";
+            cout() << "was deleted\n";
+            cout().flush();
             return;
         case Created:
-            cout << "was created\n";
+            cout() << "was created\n";
             break;
         case Modified:
-            cout << "was changed!\n";
+            cout() << "was changed!\n";
             break;
         case Exists:
             break;
     }
 
-    cout << stateDelta.size << " bytes\n";
+    cout() << stateDelta.size << " bytes\n";
+    cout().flush();
 }
 
 //if path given is NOT in fileMon returns 1
