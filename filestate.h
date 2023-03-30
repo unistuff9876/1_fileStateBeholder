@@ -18,7 +18,11 @@ public:
     QString getName();
     qint64 getSize();
     bool exists();
+    void updateState();
     void updateAndDisplayState();
+
+private:
+    void displayState();
 };
 
 #endif // FILESTATE_H

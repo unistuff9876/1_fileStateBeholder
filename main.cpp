@@ -5,7 +5,7 @@ int main(int argc, char *argv[])
 {
     QCoreApplication a(argc, argv);
 
-    FileMonitor fileMonitor;
+    FileMonitor &fileMonitor = FileMonitor::Instance();
     fileMonitor.addFile("C:\\a.txt");
     fileMonitor.addFile("C:\\b.txt");
 
