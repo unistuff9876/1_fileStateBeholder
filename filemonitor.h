@@ -3,7 +3,6 @@
 
 #include <QObject>
 #include <QVector>
-#include <QTimer>
 #include "filestate.h"
 #include "filestatedelta.h"
 
@@ -23,7 +22,6 @@ public:
 private:
     explicit FileMonitor(QObject *parent = nullptr);
 
-    QTimer *timer;
     QVector<FileState> files;
 
     FileStateDelta updateFileState(FileState& fileState);

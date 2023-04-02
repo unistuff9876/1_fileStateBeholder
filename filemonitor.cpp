@@ -6,9 +6,7 @@
 
 FileMonitor::FileMonitor(QObject *parent) : QObject(parent)
 {
-    timer = new QTimer(this);
-    QObject::connect(timer, &QTimer::timeout, this, &FileMonitor::updateAndDisplayFileInfo);
-    timer->start(1000);
+
 }
 
 FileStateDelta FileMonitor::updateFileState(FileState &fileState)
@@ -17,7 +15,7 @@ FileStateDelta FileMonitor::updateFileState(FileState &fileState)
 
     stateDelta.name = fileState.getName();
 
-    //refreshing file info so we dont read cached
+    //refreshing so we don't read stale data
     fileState.getFi().refresh();
 
     if (!fileState.exists()) {
