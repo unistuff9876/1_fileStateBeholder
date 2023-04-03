@@ -10,7 +10,6 @@ class FileMonitor : public QObject
 {
     Q_OBJECT
 public:
-    //explicit FileMonitor(QObject *parent = nullptr);
     static FileMonitor& Instance() {
         static FileMonitor s;
         return s;

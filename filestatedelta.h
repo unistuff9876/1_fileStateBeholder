@@ -1,9 +1,6 @@
 #ifndef FILESTATEDELTA_H
 #define FILESTATEDELTA_H
 
-//id have put this inside
-//the struct if qt let me
-
 enum FileStateDelta_State {
     Exists = 0,
     DoesntExist,
