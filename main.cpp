@@ -15,12 +15,13 @@ int main(int argc, char *argv[])
     QTimer timer_checkFiles;
     timer_checkFiles.connect(&timer_checkFiles, &QTimer::timeout,
                              &fileMonitor, &FileMonitor::updateAndDisplayFileInfo);
-    timer_checkFiles.start(200);
+    timer_checkFiles.start(800);
 
-    //QTimer timerCloseB;
-    //timerCloseB().setSingleShot(true);
-    //timerCloseB().connect(&timerCloseB, &QTimer::timeout, &fileMonitor, &FileMonitor::delFile("C:\\b.txt"));
-    //timerCloseB().start(3000);
+    QTimer timer_closeB;
+    timer_closeB.setSingleShot(true);
+    timer_closeB.connect(&timer_closeB, &QTimer::timeout, &fileMonitor,
+                         [&fileMonitor]{ fileMonitor.delFile("C:\\b.txt"); });
+    timer_closeB.start(4800);
 
     return a.exec();
 }
