@@ -23,13 +23,13 @@ private:
 
     QVector<FileState> files;
 
+signals:
+
+public slots:
     FileStateDelta updateFileState(FileState& fileState);
 
     void displayFileStateDelta(FileStateDelta stateDelta);
 
-signals:
-
-public slots:
     void updateAndDisplayFileInfo();
 };
 
