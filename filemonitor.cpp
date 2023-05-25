@@ -16,7 +16,7 @@ FileStateDelta FileMonitor::updateFileState(FileState &fileState)
     stateDelta.name = fileState.getName();
 
     //refreshing so we don't read stale data
-    fileState.getFi().refresh();
+    fileState.getQFileInfo().refresh();
 
     if (!fileState.exists()) {
         if (fileState.exists_prev()) {
@@ -33,12 +33,12 @@ FileStateDelta FileMonitor::updateFileState(FileState &fileState)
         stateDelta.state = Created;
         fileState.exists_prev() = 1;
         fileState.lastModified_prev()
-                = fileState.getFi().lastModified();
+                = fileState.getQFileInfo().lastModified();
     } else
-    if (fileState.getFi().lastModified() != fileState.lastModified_prev()) {
+    if (fileState.getQFileInfo().lastModified() != fileState.lastModified_prev()) {
         stateDelta.state = Modified;
         fileState.lastModified_prev()
-                = fileState.getFi().lastModified();
+                = fileState.getQFileInfo().lastModified();
     }
 
     stateDelta.size = fileState.getSize();
@@ -78,7 +78,7 @@ bool FileMonitor::addFile(QString path)
 {
     QFileInfo fileToAdd(path);
     for(auto it = files.begin(); it < files.end(); it++) {
-        if (it->getFi() == fileToAdd) {
+        if (it->getQFileInfo() == fileToAdd) {
             return 0;
         }
     }
@@ -92,7 +92,7 @@ bool FileMonitor::delFile(QString path)
 {
     QFileInfo fileToDelete(path);
     for(auto it = files.begin(); it < files.end(); it++) {
-        if (it->getFi() == fileToDelete) {
+        if (it->getQFileInfo() == fileToDelete) {
             files.erase(it);
             return 1;
         }

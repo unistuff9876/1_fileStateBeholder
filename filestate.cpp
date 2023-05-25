@@ -8,7 +8,7 @@ FileState::FileState(QString path) {
     }
 }
 
-QFileInfo FileState::getFi()
+QFileInfo FileState::getQFileInfo()
 {
     return fi;
 }

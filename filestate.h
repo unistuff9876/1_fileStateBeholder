@@ -15,7 +15,7 @@ private:
 public:
     FileState(QString path);
     FileState() {}
-    QFileInfo getFi();
+    QFileInfo getQFileInfo();
     QString getName();
     qint64 getSize();
     bool exists();
