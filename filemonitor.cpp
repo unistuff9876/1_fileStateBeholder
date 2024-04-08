@@ -4,12 +4,12 @@
 #include "filestatedelta.h"
 #include "consoleoutput.h"
 
-FileMonitor::FileMonitor(QObject *parent) : QObject(parent)
+FileStateTracker::FileStateTracker(QObject *parent) : QObject(parent)
 {
 
 }
 
-FileStateDelta FileMonitor::updateFileState(FileState &fileState)
+FileStateDelta FileStateTracker::updateFileState(FileState &fileState)
 {
     FileStateDelta stateDelta;
 
@@ -45,18 +45,16 @@ FileStateDelta FileMonitor::updateFileState(FileState &fileState)
     return stateDelta;
 }
 
-void FileMonitor::displayFileStateDelta(FileStateDelta stateDelta)
+void FileStateTracker::displayFileStateDelta(FileStateDelta stateDelta)
 {
     cout() << stateDelta.name << ":\n";
 
     switch(stateDelta.state) {
         case DoesntExist:
             cout() << "doesn't exist\n";
-            cout().flush();
             return;
         case Deleted:
             cout() << "was deleted\n";
-            cout().flush();
             return;
         case Created:
             cout() << "was created\n";
@@ -74,7 +72,7 @@ void FileMonitor::displayFileStateDelta(FileStateDelta stateDelta)
 
 //if path given is NOT in fileMon returns 1
 //and adds it, otherwise returns 0
-bool FileMonitor::addFile(QString path)
+bool FileStateTracker::addFile(QString path)
 {
     QFileInfo fileToAdd(path);
     for(auto it = files.begin(); it < files.end(); it++) {
@@ -88,7 +86,7 @@ bool FileMonitor::addFile(QString path)
 
 //if path given IS in fileMon returns 1
 //and removes it, otherwise returns 0
-bool FileMonitor::delFile(QString path)
+bool FileStateTracker::delFile(QString path)
 {
     QFileInfo fileToDelete(path);
     for(auto it = files.begin(); it < files.end(); it++) {
@@ -100,7 +98,7 @@ bool FileMonitor::delFile(QString path)
     return 0;
 }
 
-void FileMonitor::updateAndDisplayFileInfo()
+void FileStateTracker::updateAndDisplayFileInfo()
 {
     for(auto &i: files) {
         displayFileStateDelta(updateFileState(i));

@@ -8,13 +8,13 @@ int main(int argc, char *argv[])
 {
     QCoreApplication a(argc, argv);
 
-    FileMonitor &fileMonitor = FileMonitor::Instance();
+    FileStateTracker &fileMonitor = FileStateTracker::Instance();
     fileMonitor.addFile("C:\\a.txt");
     fileMonitor.addFile("C:\\b.txt");
 
     QTimer timer_checkFiles;
     timer_checkFiles.connect(&timer_checkFiles, &QTimer::timeout,
-                             &fileMonitor, &FileMonitor::updateAndDisplayFileInfo);
+                             &fileMonitor, &FileStateTracker::updateAndDisplayFileInfo);
     timer_checkFiles.start(800);
 
     QTimer timer_closeB;

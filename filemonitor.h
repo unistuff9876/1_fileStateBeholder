@@ -6,12 +6,12 @@
 #include "filestate.h"
 #include "filestatedelta.h"
 
-class FileMonitor : public QObject
+class FileStateTracker : public QObject
 {
     Q_OBJECT
 public:
-    static FileMonitor& Instance() {
-        static FileMonitor s;
+    static FileStateTracker& Instance() {
+        static FileStateTracker s;
         return s;
     }
 
@@ -19,7 +19,7 @@ public:
     bool delFile(QString path);
 
 private:
-    explicit FileMonitor(QObject *parent = nullptr);
+    explicit FileStateTracker(QObject *parent = nullptr);
 
     QVector<FileState> files;
 

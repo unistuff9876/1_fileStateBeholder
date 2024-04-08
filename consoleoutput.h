@@ -6,6 +6,7 @@
 QTextStream& cout()
 {
     static QTextStream out(stdout);
+    out.flush();
     return out;
 }
 
