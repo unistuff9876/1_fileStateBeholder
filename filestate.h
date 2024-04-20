@@ -10,7 +10,7 @@ class FileState
 private:
     QFileInfo fi;
     QDateTime lastModified_prev_;
-    bool exists_prev_ = 0;
+    bool exists_prev_ = false;
 
 public:
     FileState(QString path);

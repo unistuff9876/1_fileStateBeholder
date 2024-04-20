@@ -21,7 +21,7 @@ FileStateDelta FileStateTracker::updateFileState(FileState &fileState)
     if (!fileState.exists()) {
         if (fileState.exists_prev()) {
             stateDelta.state = Deleted;
-            fileState.exists_prev() = 0;
+            fileState.exists_prev() = false;
         } else {
             stateDelta.state = DoesntExist;
         }
@@ -31,7 +31,7 @@ FileStateDelta FileStateTracker::updateFileState(FileState &fileState)
     stateDelta.state = Exists;
     if (!fileState.exists_prev()) {
         stateDelta.state = Created;
-        fileState.exists_prev() = 1;
+        fileState.exists_prev() = true;
         fileState.lastModified_prev()
                 = fileState.getQFileInfo().lastModified();
     } else
@@ -70,32 +70,32 @@ void FileStateTracker::displayFileStateDelta(FileStateDelta stateDelta)
     cout().flush();
 }
 
-//if path given is NOT in fileMon returns 1
-//and adds it, otherwise returns 0
+//if path given is NOT in fileMon returns true
+//and adds it, otherwise returns false
 bool FileStateTracker::addFile(QString path)
 {
     QFileInfo fileToAdd(path);
     for(auto it = files.begin(); it < files.end(); it++) {
         if (it->getQFileInfo() == fileToAdd) {
-            return 0;
+            return false;
         }
     }
     files.push_back(FileState(path));
-    return 1;
+    return true;
 }
 
-//if path given IS in fileMon returns 1
-//and removes it, otherwise returns 0
+//if path given IS in fileMon returns true
+//and removes it, otherwise returns false
 bool FileStateTracker::delFile(QString path)
 {
     QFileInfo fileToDelete(path);
     for(auto it = files.begin(); it < files.end(); it++) {
         if (it->getQFileInfo() == fileToDelete) {
             files.erase(it);
-            return 1;
+            return true;
         }
     }
-    return 0;
+    return false;
 }
 
 void FileStateTracker::updateAndDisplayFileInfo()

@@ -4,7 +4,7 @@ FileState::FileState(QString path) {
     fi = QFileInfo(path);
     if(fi.exists(path)) {
         lastModified_prev_ = fi.lastModified();
-        exists_prev_ = 1;
+        exists_prev_ = true;
     }
 }
 

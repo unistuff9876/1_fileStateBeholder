@@ -9,6 +9,11 @@
 class FileStateTracker : public QObject
 {
     Q_OBJECT
+
+    explicit FileStateTracker(QObject *parent = nullptr);
+
+    QVector<FileState> files;
+
 public:
     static FileStateTracker& Instance() {
         static FileStateTracker s;
@@ -17,11 +22,6 @@ public:
 
     bool addFile(QString path);
     bool delFile(QString path);
-
-private:
-    explicit FileStateTracker(QObject *parent = nullptr);
-
-    QVector<FileState> files;
 
 signals:
 
