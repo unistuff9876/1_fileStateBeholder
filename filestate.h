@@ -17,10 +17,13 @@ public:
     FileState() {}
     QFileInfo& getQFileInfo();
     QString getName();
+    QString getPath();
     qint64 getSize();
     bool exists();
     bool& exists_prev();
     QDateTime& lastModified_prev();
+
+    friend class FileStateTracker;
 };
 
 #endif // FILESTATE_H
