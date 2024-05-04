@@ -2,6 +2,7 @@
 #define FILEMONITORCOUT_H
 
 #include <QObject>
+#include <iostream>
 
 #include "filemonitor.h"
 

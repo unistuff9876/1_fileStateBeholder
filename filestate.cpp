@@ -1,5 +1,3 @@
-#include <QFileInfo>
-
 #include "filestate.h"
 #include "filestatedelta.h"
 

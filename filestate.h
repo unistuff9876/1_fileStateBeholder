@@ -3,6 +3,7 @@
 
 #include "filestatedelta.h"
 
+#include <QFileInfo>
 #include <QDateTime>
 #include <QVector>
 

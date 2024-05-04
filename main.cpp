@@ -1,8 +1,10 @@
 #include <QCoreApplication>
 
 #include <QTimer>
+#include <iostream>
 
 #include "filemonitor.h"
+#include "filemonitorcout.h"
 
 int main(int argc, char *argv[])
 {
