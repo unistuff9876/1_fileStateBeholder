@@ -1,10 +1,11 @@
 #ifndef FILEMONITOR_H
 #define FILEMONITOR_H
 
+#include <QFileInfo>
 #include <QObject>
 #include <QVector>
+
 #include "filestate.h"
-#include "filestatedelta.h"
 
 class FileStateTracker : public QObject
 {
@@ -15,22 +16,25 @@ class FileStateTracker : public QObject
     QVector<FileState> files;
 
 public:
-    static FileStateTracker& Instance() {
+    static FileStateTracker& instance() {
         static FileStateTracker s;
         return s;
     }
 
     bool addFile(QString path);
-    bool delFile(QString path);
+    bool removeFile(QString path);
 
 signals:
+    void fileAddSuccess(QFileInfo &fi);
+    void fileAddFailureAlreadyExists(QFileInfo &fi);
+    void fileRemoveSuccess(QFileInfo &fi);
+    void fileRemoveFailureDoesntExist(QFileInfo &fi);
+    void fileCreated(FileState &f);
+    void fileDeleted(FileState &f);
+    void fileChanged(FileState &f);
 
 public slots:
-    FileStateDelta updateFileState(FileState& fileState);
-
-    void displayFileStateDelta(FileStateDelta stateDelta);
-
-    void updateAndDisplayFileInfo();
+    void updateAndDisplay();
 };
 
 #endif // FILEMONITOR_H

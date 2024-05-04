@@ -22,6 +22,5 @@ SOURCES += main.cpp \
 HEADERS += \
     filemonitor.h \
     filestate.h \
-    consoleoutput.h \
     filemonitorcout.h \
     filestatedelta.h

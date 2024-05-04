@@ -3,29 +3,22 @@
 
 #include <QObject>
 
-#include <iostream>
-
 #include "filemonitor.h"
 
 class FileMonitorCout
 {
     Q_OBJECT
 
-    explicit FileMonitorCout(FileStateTracker &fst) {
-        connect();
-    }
+    explicit FileMonitorCout(FileStateTracker &fst);
 
 public:
-    static FileMonitorCout& instance(FileStateTracker &fst) {
-        static FileMonitorCout s;
-        return s;
-    }
+    static FileMonitorCout& instance(FileStateTracker &fst);
 
 public slots:
-    void fileAddSuccess(FileState &f);
-    void fileAddFailureAlreadyExists(FileState &f);
-    void fileRemoveSuccess(FileState &f);
-    void fileRemoveFailureDoesntExist(FileState &f);
+    void fileAddSuccess(QFileInfo &fi);
+    void fileAddFailureAlreadyExists(QFileInfo &fi);
+    void fileRemoveSuccess(QFileInfo &f);
+    void fileRemoveFailureDoesntExist(QFileInfo &fi);
     void fileCreated(FileState &f);
     void fileDeleted(FileState &f);
     void fileChanged(FileState &f);

@@ -1,7 +1,8 @@
 #ifndef FILESTATE_H
 #define FILESTATE_H
 
-#include <QFileInfo>
+#include "filestatedelta.h"
+
 #include <QDateTime>
 #include <QVector>
 
@@ -15,13 +16,15 @@ private:
 public:
     FileState(QString path);
     FileState() {}
-    QFileInfo& getQFileInfo();
-    QString getName();
-    QString getPath();
-    qint64 getSize();
+    QFileInfo& QFileInfo();
+    QString name();
+    QString fullPath();
+    qint64 size();
     bool exists();
     bool& exists_prev();
     QDateTime& lastModified_prev();
+
+    FILESTATEDELTA update();
 
     friend class FileStateTracker;
 };
