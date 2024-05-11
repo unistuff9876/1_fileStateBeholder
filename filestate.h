@@ -5,22 +5,23 @@
 #include <QDateTime>
 #include <QVector>
 
+#include "filestatedelta.h"
+
 class FileState
 {
 private:
     QFileInfo fi;
-    QDateTime lastModified_prev_;
-    bool exists_prev_ = 0;
+    QDateTime lastModified_prev;
+    bool exists_prev;
 
 public:
-    FileState(QString path);
+    FileState(QFileInfo fileToAdd);
     FileState() {}
-    QFileInfo& getQFileInfo();
-    QString getName();
-    qint64 getSize();
-    bool exists();
-    bool& exists_prev();
-    QDateTime& lastModified_prev();
+
+    FILESTATEDELTA update();
+
+    friend class FileStateTracker;
+    friend class FileMonitorCout;
 };
 
 #endif // FILESTATE_H

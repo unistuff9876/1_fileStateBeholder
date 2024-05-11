@@ -1,36 +1,49 @@
 #include "filestate.h"
+#include "filestatedelta.h"
+#include <QDebug>
 
-FileState::FileState(QString path) {
-    fi = QFileInfo(path);
-    if(fi.exists(path)) {
-        lastModified_prev_ = fi.lastModified();
-        exists_prev_ = 1;
+FileState::FileState(QFileInfo fi) {
+    this->fi = fi;
+    if(fi.exists()) {
+        lastModified_prev = fi.lastModified();
+        exists_prev = true;
+    }
+    else {
+        exists_prev = false;
     }
 }
 
-QFileInfo& FileState::getQFileInfo()
+FILESTATEDELTA FileState::update()
 {
-    return fi;
-}
+    fi.refresh();
 
-QString FileState::getName() {
-    return fi.fileName();
-}
+    if (fi.exists()) {
+        //got created
+        if (!exists_prev) {
+            exists_prev = true;
+            lastModified_prev
+                = fi.lastModified();
 
-qint64 FileState::getSize() {
-    return fi.size();
-}
+            return FILESTATEDELTA::Created;
+        }
+        else
+        //exists and existed - we check for change
+        if (fi.lastModified() != lastModified_prev) {
+            lastModified_prev = fi.lastModified();
+            return FILESTATEDELTA::Changed;
+        }
+    }
+    else
+    //got deleted
+    if (exists_prev) {
+        exists_prev = false;
+        lastModified_prev
+            = fi.lastModified();
 
-bool FileState::exists() {
-    return fi.exists();
-}
+        return FILESTATEDELTA::Deleted;
+    }
 
-QDateTime& FileState::lastModified_prev()
-{
-    return lastModified_prev_;
-}
-
-bool& FileState::exists_prev()
-{
-    return exists_prev_;
+    //exists and existed without change
+    //OR didnt exist and hasnt existed - no change
+    return FILESTATEDELTA::NoChange;
 }

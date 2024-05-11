@@ -1,20 +1,11 @@
 #ifndef FILESTATEDELTA_H
 #define FILESTATEDELTA_H
 
-enum FileStateDelta_State {
-    Exists = 0,
-    DoesntExist,
+enum FILESTATEDELTA {
     Created,
     Deleted,
-    Modified
-};
-
-struct FileStateDelta {
-
-    FileStateDelta_State state;
-
-    QString name;
-    qint64 size;
+    Changed,
+    NoChange
 };
 
 #endif // FILESTATEDELTA_H
