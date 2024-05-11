@@ -1,19 +1,19 @@
-#ifndef FILEMONITORCOUT_H
-#define FILEMONITORCOUT_H
+#ifndef FILESTATETRACKERCOUT_H
+#define FILESTATETRACKERCOUT_H
 
 #include <QObject>
 #include <QFileInfo>
 
 #include "filestatetracker.h"
 
-class FileMonitorCout : public QObject
+class FileStateTrackerCout : public QObject
 {
     Q_OBJECT
 
-    explicit FileMonitorCout(FileStateTracker &fst);
+    explicit FileStateTrackerCout(FileStateTracker &fst);
 
 public:
-    static FileMonitorCout& instance(FileStateTracker &fst);
+    static FileStateTrackerCout& instance(FileStateTracker &fst);
 
 public slots:
     void fileAddSuccessExists(QFileInfo &fi);
@@ -26,4 +26,4 @@ public slots:
     void fileChanged(QFileInfo &fi);
 };
 
-#endif // FILEMONITORCOUT_H
+#endif // FILESTATETRACKERCOUT_H

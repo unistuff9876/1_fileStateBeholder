@@ -13,7 +13,7 @@ int main(int argc, char *argv[])
     QCoreApplication a(argc, argv);
 
     FileStateTracker &fileMonitor = FileStateTracker::instance();
-    FileMonitorCout &fileMonitorCout = FileMonitorCout::instance(fileMonitor);
+    FileStateTrackerCout &fileStateTrackerCout = FileStateTrackerCout::instance(fileMonitor);
 
     fileMonitor.addFile("C://a.txt");
     fileMonitor.addFile("C://b.txt");

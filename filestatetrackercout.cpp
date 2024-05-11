@@ -3,58 +3,58 @@
 #include "filestatetrackercout.h"
 #include "filestate.h"
 
-FileMonitorCout::FileMonitorCout(FileStateTracker &fst) {
-    connect(&fst, FileStateTracker::fileAddSuccessExists, this, FileMonitorCout::fileAddSuccessExists);
-    connect(&fst, FileStateTracker::fileAddSuccessDoesntExist, this, FileMonitorCout::fileAddSuccessDoesntExist);
-    connect(&fst, FileStateTracker::fileAddFailureAlreadyTracked, this, FileMonitorCout::fileAddFailureAlreadyTracked);
-    connect(&fst, FileStateTracker::fileRemoveSuccess, this, FileMonitorCout::fileRemoveSuccess);
-    connect(&fst, FileStateTracker::fileRemoveFailureDoesntExist, this, FileMonitorCout::fileRemoveFailureDoesntExist);
-    connect(&fst, FileStateTracker::fileCreated, this, FileMonitorCout::fileCreated);
-    connect(&fst, FileStateTracker::fileDeleted, this, FileMonitorCout::fileDeleted);
-    connect(&fst, FileStateTracker::fileChanged, this, FileMonitorCout::fileChanged);
+FileStateTrackerCout::FileStateTrackerCout(FileStateTracker &fst) {
+    connect(&fst, FileStateTracker::fileAddSuccessExists, this, FileStateTrackerCout::fileAddSuccessExists);
+    connect(&fst, FileStateTracker::fileAddSuccessDoesntExist, this, FileStateTrackerCout::fileAddSuccessDoesntExist);
+    connect(&fst, FileStateTracker::fileAddFailureAlreadyTracked, this, FileStateTrackerCout::fileAddFailureAlreadyTracked);
+    connect(&fst, FileStateTracker::fileRemoveSuccess, this, FileStateTrackerCout::fileRemoveSuccess);
+    connect(&fst, FileStateTracker::fileRemoveFailureDoesntExist, this, FileStateTrackerCout::fileRemoveFailureDoesntExist);
+    connect(&fst, FileStateTracker::fileCreated, this, FileStateTrackerCout::fileCreated);
+    connect(&fst, FileStateTracker::fileDeleted, this, FileStateTrackerCout::fileDeleted);
+    connect(&fst, FileStateTracker::fileChanged, this, FileStateTrackerCout::fileChanged);
 }
 
-FileMonitorCout &FileMonitorCout::instance(FileStateTracker &fst) {
-    static FileMonitorCout s(fst);
+FileStateTrackerCout &FileStateTrackerCout::instance(FileStateTracker &fst) {
+    static FileStateTrackerCout s(fst);
     return s;
 }
 
-void FileMonitorCout::fileAddSuccessExists(QFileInfo &fi)
+void FileStateTrackerCout::fileAddSuccessExists(QFileInfo &fi)
 {
     qInfo() << fi.absoluteFilePath() << "был добавлен для отлеживания и существует, размер" << fi.size() << "байтов.";
 }
 
-void FileMonitorCout::fileAddSuccessDoesntExist(QFileInfo &fi)
+void FileStateTrackerCout::fileAddSuccessDoesntExist(QFileInfo &fi)
 {
     qInfo() << fi.absoluteFilePath() << "был добавлен для отлеживания и не существует.";
 }
 
-void FileMonitorCout::fileAddFailureAlreadyTracked(QFileInfo &fi)
+void FileStateTrackerCout::fileAddFailureAlreadyTracked(QFileInfo &fi)
 {
     qInfo() << fi.absoluteFilePath() << "не был добавлен для отслеживания, т.к. уже отслеживается.";
 }
 
-void FileMonitorCout::fileRemoveSuccess(QFileInfo &fi)
+void FileStateTrackerCout::fileRemoveSuccess(QFileInfo &fi)
 {
     qInfo() << fi.absoluteFilePath() << "был снят с отслеживания.";
 }
 
-void FileMonitorCout::fileRemoveFailureDoesntExist(QFileInfo &fi)
+void FileStateTrackerCout::fileRemoveFailureDoesntExist(QFileInfo &fi)
 {
     qInfo() << fi.absoluteFilePath() << "не был снят с отслеживания, т.к. не был отслеживаем.";
 }
 
-void FileMonitorCout::fileCreated(QFileInfo &fi)
+void FileStateTrackerCout::fileCreated(QFileInfo &fi)
 {
     qInfo() << fi.absoluteFilePath() << "был создан. Размер" << fi.size() << "байтов.";
 }
 
-void FileMonitorCout::fileDeleted(QFileInfo &fi)
+void FileStateTrackerCout::fileDeleted(QFileInfo &fi)
 {
     qInfo() << fi.absoluteFilePath() << "был удален.";
 }
 
-void FileMonitorCout::fileChanged(QFileInfo &fi)
+void FileStateTrackerCout::fileChanged(QFileInfo &fi)
 {
     qInfo() << fi.absoluteFilePath() << "был изменен. Размер" << fi.size() << "байтов.";
 }
