@@ -1,9 +1,9 @@
 #ifndef FILEMONITOR_H
 #define FILEMONITOR_H
 
-#include <QFileInfo>
 #include <QObject>
 #include <QVector>
+#include <QFileInfo>
 
 #include "filestate.h"
 
@@ -24,17 +24,18 @@ public:
     bool addFile(QString path);
     bool removeFile(QString path);
 
+    void updateAndDisplay();
+
 signals:
-    void fileAddSuccess(QFileInfo &fi);
-    void fileAddFailureAlreadyExists(QFileInfo &fi);
+    void fileAddSuccessExists(QFileInfo &fi);
+    void fileAddSuccessDoesntExist(QFileInfo &fi);
+    void fileAddFailureAlreadyTracked(QFileInfo &fi);
     void fileRemoveSuccess(QFileInfo &fi);
     void fileRemoveFailureDoesntExist(QFileInfo &fi);
-    void fileCreated(FileState &f);
-    void fileDeleted(FileState &f);
-    void fileChanged(FileState &f);
+    void fileCreated(QFileInfo &fi);
+    void fileDeleted(QFileInfo &fi);
+    void fileChanged(QFileInfo &fi);
 
-public slots:
-    void updateAndDisplay();
 };
 
 #endif // FILEMONITOR_H

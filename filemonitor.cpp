@@ -14,13 +14,19 @@ bool FileStateTracker::addFile(QString path)
 {
     QFileInfo fileToAdd(path);
     for(auto it = files.begin(); it < files.end(); it++) {
-        if (it->QFileInfo() == fileToAdd) {
-            emit fileAddFailureAlreadyExists(fileToAdd);
+        if (it->fi == fileToAdd) {
+            emit fileAddFailureAlreadyTracked(fileToAdd);
             return false;
         }
     }
-    files.push_back(FileState(path));
-    emit fileAddSuccess(fileToAdd);
+
+    if (fileToAdd.exists()) {
+        emit fileAddSuccessExists(fileToAdd);
+    } else {
+        emit fileAddSuccessDoesntExist(fileToAdd);
+    }
+
+    files.push_back(fileToAdd);
     return true;
 }
 
@@ -30,7 +36,7 @@ bool FileStateTracker::removeFile(QString path)
 {
     QFileInfo fileToRemove(path);
     for(auto it = files.begin(); it < files.end(); it++) {
-        if (it->QFileInfo() == fileToRemove) {
+        if (it->fi == fileToRemove) {
             emit fileRemoveSuccess(fileToRemove);
             files.erase(it);
             return true;
@@ -46,13 +52,15 @@ void FileStateTracker::updateAndDisplay()
         FILESTATEDELTA result = i.update();
         switch (result) {
         case FILESTATEDELTA::Created:
-            emit fileCreated(i);
+            emit fileCreated(i.fi);
         break;
         case FILESTATEDELTA::Deleted:
-            emit fileDeleted(i);
+            emit fileDeleted(i.fi);
         break;
         case FILESTATEDELTA::Changed:
-            emit fileChanged(i);
+            emit fileChanged(i.fi);
+        break;
+        default:
         break;
         }
     }

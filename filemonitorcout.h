@@ -2,11 +2,11 @@
 #define FILEMONITORCOUT_H
 
 #include <QObject>
-#include <iostream>
+#include <QFileInfo>
 
 #include "filemonitor.h"
 
-class FileMonitorCout
+class FileMonitorCout : public QObject
 {
     Q_OBJECT
 
@@ -16,13 +16,14 @@ public:
     static FileMonitorCout& instance(FileStateTracker &fst);
 
 public slots:
-    void fileAddSuccess(QFileInfo &fi);
-    void fileAddFailureAlreadyExists(QFileInfo &fi);
+    void fileAddSuccessExists(QFileInfo &fi);
+    void fileAddSuccessDoesntExist(QFileInfo &fi);
+    void fileAddFailureAlreadyTracked(QFileInfo &fi);
     void fileRemoveSuccess(QFileInfo &f);
     void fileRemoveFailureDoesntExist(QFileInfo &fi);
-    void fileCreated(FileState &f);
-    void fileDeleted(FileState &f);
-    void fileChanged(FileState &f);
+    void fileCreated(QFileInfo &fi);
+    void fileDeleted(QFileInfo &fi);
+    void fileChanged(QFileInfo &fi);
 };
 
 #endif // FILEMONITORCOUT_H
