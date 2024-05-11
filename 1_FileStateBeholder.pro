@@ -15,12 +15,12 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += main.cpp \
-    filemonitor.cpp \
     filestate.cpp \
-    filemonitorcout.cpp
+    filestatetracker.cpp \
+    filestatetrackercout.cpp
 
 HEADERS += \
-    filemonitor.h \
     filestate.h \
-    filemonitorcout.h \
-    filestatedelta.h
+    filestatedelta.h \
+    filestatetracker.h \
+    filestatetrackercout.h

@@ -3,8 +3,8 @@
 #include <QTimer>
 #include <QTextCodec>
 
-#include "filemonitor.h"
-#include "filemonitorcout.h"
+#include "filestatetracker.h"
+#include "filestatetrackercout.h"
 
 int main(int argc, char *argv[])
 {

@@ -1,6 +1,6 @@
 #include <QTextStream>
 
-#include "filemonitor.h"
+#include "filestatetracker.h"
 #include "filestatedelta.h"
 
 FileStateTracker::FileStateTracker(QObject *parent) : QObject(parent)

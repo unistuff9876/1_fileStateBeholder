@@ -4,7 +4,7 @@
 #include <QObject>
 #include <QFileInfo>
 
-#include "filemonitor.h"
+#include "filestatetracker.h"
 
 class FileMonitorCout : public QObject
 {
